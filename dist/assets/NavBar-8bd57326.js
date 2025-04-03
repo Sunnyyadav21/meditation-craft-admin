@@ -1,0 +1,1 @@
+import{j as a,S as n}from"./index-51b0ddf4.js";import{C as e}from"./Collapse-9c3af1a9.js";const o=({isMenuOpened:s})=>a.jsx("div",{className:"topnav",children:a.jsx(n,{fluid:!0,children:a.jsx("nav",{className:"navbar navbar-expand-lg",children:a.jsx(e,{in:s,children:a.jsx("div",{className:"collapse navbar-collapse",id:"topnav-menu-content"})})})})});export{o as default};

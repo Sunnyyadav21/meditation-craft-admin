@@ -4,6 +4,7 @@ import { FormInput, PageBreadcrumb } from '@/components';
 import { Button, Card, Col, Form, Row } from 'react-bootstrap';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
+import request from '../../request';
 
 export default function Category() {
 
@@ -16,7 +17,7 @@ export default function Category() {
             categoriesName: category
         }
         try {
-            const response = await axios.post('http://localhost:5000/categorie', data)
+            const response = await axios.post(`${request.create_categorie}`, data)
             if (response.status == 201) {
                 notify()
             }

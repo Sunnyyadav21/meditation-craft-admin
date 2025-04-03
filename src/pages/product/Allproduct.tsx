@@ -5,6 +5,8 @@ import { Card, Table } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify';
+import request from '../../request';
+
 
 export default function Allproduct() {
 
@@ -32,7 +34,7 @@ export default function Allproduct() {
     ]
 
     const feetchProduct = async () => {
-        await axios.get('http://localhost:5000/product')
+        await axios.get(`${request.get_product}`)
             .then(res => {
                 setProducts(res.data.allProduct)
             }).catch(
@@ -48,7 +50,7 @@ export default function Allproduct() {
 
     const deleteHandel = async (id) => {
         try {
-            const response = await axios.delete(`http://localhost:5000/product/${id}`)
+            const response = await axios.delete(`${request.get_product}/${id}`)
             if (response.status == 200) {
                 feetchProduct()
                 notify()

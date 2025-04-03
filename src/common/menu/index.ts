@@ -8,11 +8,7 @@ const getMenuItems = () => {
 	return MENU_ITEMS
 }
 
-// const getHorizontalMenuItems = () => {
-// 	// NOTE - You can fetch from server and return here as well
-// 	return HORIZONTAL_MENU_ITEMS
-// }
-
+ 
 const findAllParent = (
 	menuItems: MenuItemTypes[],
 	menuItem: MenuItemTypes
@@ -45,4 +41,4 @@ const findMenuItem = (
 	return null
 }
 
-export { findAllParent, findMenuItem, getMenuItems, getHorizontalMenuItems }
+export { findAllParent, findMenuItem, getMenuItems}

@@ -1,53 +1,41 @@
 //@ts-nocheck
-import React from 'react'
-import { Route, RouteProps } from 'react-router-dom'
+import React from 'react';
+import { Route, RouteProps } from 'react-router-dom';
 
 // components
-import PrivateRoute from './PrivateRoute'
-import Allproduct from '@/pages/product/allproduct'
-import Allcategory from '@/pages/category/allcategory'
+import PrivateRoute from './PrivateRoute';
+import Allproduct from '@/pages/product/Allproduct';
+import Allcategory from '@/pages/category/Allcategory';
 
-// lazy load all the views
+// Lazy load all the views
+const Login = React.lazy(() => import('../pages/auth/Login'));
+const Register = React.lazy(() => import('../pages/auth/Register'));
+const Logout = React.lazy(() => import('../pages/auth/Logout'));
+const ForgotPassword = React.lazy(() => import('../pages/auth/ForgotPassword'));
+const LockScreen = React.lazy(() => import('../pages/auth/LockScreen'));
 
-// auth
-const Login = React.lazy(() => import('../pages/auth/Login'))
-const Register = React.lazy(() => import('../pages/auth/Register'))
-const Logout = React.lazy(() => import('../pages/auth/Logout'))
-const ForgotPassword = React.lazy(() => import('../pages/auth/ForgotPassword'))
-const LockScreen = React.lazy(() => import('../pages/auth/LockScreen'))
+const Dashboard = React.lazy(() => import('../pages/Dashboard'));
+const MaintenancePages = React.lazy(() => import('../pages/other/Maintenance'));
 
-// // dashboard
-const Dashboard = React.lazy(() => import('../pages/Dashboard'))
+const Error404 = React.lazy(() => import('../pages/error/Error404'));
+const Error500 = React.lazy(() => import('../pages/error/Error500'));
 
-// // pages
-
-const MaintenancePages = React.lazy(() => import('../pages/other/Maintenance'))
-
-
-
-// // error
-const Error404 = React.lazy(() => import('../pages/error/Error404'))
-const Error500 = React.lazy(() => import('../pages/error/Error500'))
-
-
-// meditationCraft
-
-const Product = React.lazy(() => import('../pages/product/Product'))
-const Category = React.lazy(() => import('../pages/category/Category'))
+const Product = React.lazy(() => import('../pages/product/Product'));
+const Category = React.lazy(() => import('../pages/category/Category'));
 
 export interface RoutesProps {
-	path: RouteProps['path']
-	name?: string
-	element?: RouteProps['element']
-	route?: any
-	exact?: boolean
-	icon?: string
-	header?: string
-	roles?: string[]
-	children?: RoutesProps[]
+	path: RouteProps['path'];
+	name?: string;
+	element?: RouteProps['element'];
+	route?: any;
+	exact?: boolean;
+	icon?: string;
+	header?: string;
+	roles?: string[];
+	children?: RoutesProps[];
 }
 
-// dashboards
+// Dashboards
 const dashboardRoutes: RoutesProps = {
 	path: '/admin',
 	name: 'Dashboards',
@@ -67,17 +55,10 @@ const dashboardRoutes: RoutesProps = {
 			route: PrivateRoute,
 		},
 	],
+};
 
-}
-// const productRoute: RoutesProps = {
-// 	path: '/pages/product',
-// 	name: 'Product',
-// 	element: <Product />,
-// 	route: Route,
-
-// }
-
-const productRoute = {
+// Product Routes
+const productRoute: RoutesProps = {
 	path: '/pages',
 	name: 'Pages',
 	icon: 'pages',
@@ -85,22 +66,21 @@ const productRoute = {
 	children: [
 		{
 			path: '/pages/product',
-			name: 'Profile',
+			name: 'Product',
 			element: <Product />,
 			route: PrivateRoute,
 		},
 		{
 			path: '/pages/allproduct',
-			name: 'Allproduct',
+			name: 'All Products',
 			element: <Allproduct />,
 			route: PrivateRoute,
-		}
-
+		},
 	],
-}
+};
 
-
-const categoryRoute = {
+// Category Routes
+const categoryRoute: RoutesProps = {
 	path: '/pages',
 	name: 'Pages',
 	icon: 'pages',
@@ -108,24 +88,20 @@ const categoryRoute = {
 	children: [
 		{
 			path: '/pages/category',
-			name: 'Profile',
+			name: 'Category',
 			element: <Category />,
 			route: PrivateRoute,
 		},
 		{
 			path: '/pages/allcategory',
-			name: 'Allcategory',
+			name: 'All Categories',
 			element: <Allcategory />,
 			route: PrivateRoute,
-		}
-
+		},
 	],
-}
+};
 
-
-
-
-// auth
+// Auth Routes
 const authRoutes: RoutesProps[] = [
 	{
 		path: '/auth/login',
@@ -157,10 +133,10 @@ const authRoutes: RoutesProps[] = [
 		element: <LockScreen />,
 		route: Route,
 	},
-]
+];
 
-// public routes
-const otherPublicRoutes = [
+// Public Routes
+const otherPublicRoutes: RoutesProps[] = [
 	{
 		path: '*',
 		name: 'Error - 404',
@@ -185,33 +161,32 @@ const otherPublicRoutes = [
 		element: <MaintenancePages />,
 		route: Route,
 	},
+];
 
-]
-
-// flatten the list of all nested routes
+// Flatten the list of all nested routes
 const flattenRoutes = (routes: RoutesProps[]) => {
-	let flatRoutes: RoutesProps[] = []
+	let flatRoutes: RoutesProps[] = [];
 
-	routes = routes || []
+	routes = routes || [];
 	routes.forEach((item: RoutesProps) => {
-		flatRoutes.push(item)
+		flatRoutes.push(item);
 		if (typeof item.children !== 'undefined') {
-			flatRoutes = [...flatRoutes, ...flattenRoutes(item.children)]
+			flatRoutes = [...flatRoutes, ...flattenRoutes(item.children)];
 		}
-	})
-	return flatRoutes
-}
+	});
+	return flatRoutes;
+};
 
 // All routes
-// const authProtectedRoutes = [dashboardRoutes, customPagesRoutes, uiRoutes]
-const authProtectedRoutes = [dashboardRoutes, productRoute, categoryRoute]
-const publicRoutes = [...authRoutes, ...otherPublicRoutes,]
+const authProtectedRoutes = [dashboardRoutes, productRoute, categoryRoute];
+const publicRoutes = [...authRoutes, ...otherPublicRoutes];
 
-const authProtectedFlattenRoutes = flattenRoutes([...authProtectedRoutes])
-const publicProtectedFlattenRoutes = flattenRoutes([...publicRoutes])
+const authProtectedFlattenRoutes = flattenRoutes([...authProtectedRoutes]);
+const publicProtectedFlattenRoutes = flattenRoutes([...publicRoutes]);
+
 export {
 	publicRoutes,
 	authProtectedRoutes,
 	authProtectedFlattenRoutes,
 	publicProtectedFlattenRoutes,
-}
+};

@@ -5,19 +5,27 @@ import { Button, Card, Col, Form, Row, Table, Modal } from 'react-bootstrap';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
+import request from '../../request';
+import dotenv from 'dotenv';
+import config from '@/config';
 
+const baseUrl = config;
 
 export default function Allcategory() {
+     
 
+    console.log(request.get_categorie, 'Sunny');
+    
     const [category, setCategory] = useState()
     const [updateCategory, setUpdateCategory] = useState()
     const [show, setShow] = useState(false)
-
+     console.log(request, 'get_product');
+    
     // const notify = () => toast("Delated successfully");
     const notify = (message) => toast(message);
 
     const fetchCategory = () => {
-        axios.get('http://localhost:5000/categorie').then(res => {
+        axios.get(`${request.get_categorie}`).then(res => {
             setCategory(res.data)
         }).catch(err => {
             console.log(err);
@@ -30,7 +38,7 @@ export default function Allcategory() {
 
     const categoryDeleteHandel = async (id) => {
         try {
-            const response = await axios.delete(`http://localhost:5000/categorie/${id}`)
+            const response = await axios.delete(`${request.get_categorie}/${id}`)
             if (response.status == 200) {
                 notify("Delated successfully");
                 fetchCategory()
@@ -55,7 +63,7 @@ export default function Allcategory() {
 
     const updateCategoryApi = async () => {
         try {
-            const response = await axios.put(`http://localhost:5000/categorie/${updateCategory._id}`, {
+            const response = await axios.put(`${request.get_categorie}/${updateCategory._id}`, {
                 categoriesName: updateCategory.categoriesName
             })
             if (response.status == 200) {

@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="/favicon.ico" type="image/svg+xml" href="/logo.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Velonic React - Bootstrap 5 Admin & Dashboard Template</title>
+  <style>
+    #splash-screen {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      background: white;
+      display: flex;
+      height: 100%;
+      width: 100%;
+      transform: translate(-50%, -50%);
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      opacity: 1;
+      transition: all 15s linear;
+      overflow: hidden;
+    }
+
+    #splash-screen.remove {
+      animation: fadeout 0.7s forwards;
+      z-index: 0;
+    }
+
+    @keyframes fadeout {
+      to {
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+  </style>
+  <script type="module" crossorigin src="./assets/index-51b0ddf4.js"></script>
+  <link rel="stylesheet" href="./assets/index-9f0fe4ee.css">
+</head>
+
+<body>
+  <div id="root"></div>
+  <div id="splash-screen">
+    <img alt="Logo" class="light" src="./images/logo-dark.png" style="height: 10%" />
+  </div>
+  
+  <script>
+    // Use MutationObserver instead of DOMNodeInserted
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.addedNodes.length > 0) {
+          document.querySelector('#splash-screen')?.classList.add('remove');
+          observer.disconnect(); // Stop observing after first change
+        }
+      });
+    });
+
+    const rootNode = document.querySelector('#root');
+
+    if (rootNode) {
+      observer.observe(rootNode, { childList: true });
+    }
+  </script>
+</body>
+
+</html>

@@ -3,6 +3,8 @@ import { FormInput, PageBreadcrumb } from '@/components';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Button, Card, Col, Form, Row } from 'react-bootstrap';
+import request from '../../request';
+
 
 const Product = () => {
     const [productName, setProductName] = useState('');
@@ -29,7 +31,7 @@ const Product = () => {
 
     // Fetch categories from API (optional)
     useEffect(() => {
-        axios.get('http://localhost:5000/categorie') // Change URL to your API endpoint
+        axios.get(`${request.get_categorie}`) // Change URL to your API endpoint
             .then((response) => {
                 setCategories(response?.data);
             })
@@ -63,7 +65,7 @@ const Product = () => {
                 category, // Updated category ID
             };
 
-            await axios.post('http://localhost:5000/product', data);
+            await axios.post(`${request.create_product}`, data);
             alert("Data submitted successfully!");
         } catch (error) {
             console.error("Submission error:", error);
