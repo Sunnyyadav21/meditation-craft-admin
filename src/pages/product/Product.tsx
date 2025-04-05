@@ -44,32 +44,42 @@ const Product = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const data = {
-                product: productName,
-                price: productPrice,
-                regularPrice,
-                discount,
-                color,
-                appearance,
-                rarity,
-                source,
-                weight,
-                quantity,
-                sku,
-                stonetype,
-                dimensions: dimensions ? [dimensions] : [],
-                producttype: producttype ? [producttype] : [],
-                stock,
-                images: images ? [images] : [],
-                description: productDescription,
-                category, // Updated category ID
-            };
-
-            await axios.post(`${request.create_product}`, data);
-            alert("Data submitted successfully!");
+            // Create FormData to send images
+            const formData = new FormData();
+            formData.append("product", productName);
+            formData.append("price", productPrice);
+            formData.append("regularPrice", regularPrice);
+            formData.append("discount", discount);
+            formData.append("color", color);
+            formData.append("appearance", appearance);
+            formData.append("rarity", rarity);
+            formData.append("source", source);
+            formData.append("weight", weight);
+            formData.append("quantity", quantity);
+            formData.append("sku", sku);
+            formData.append("stonetype", stonetype);
+            formData.append("dimensions", dimensions);
+            formData.append("producttype", producttype);
+            formData.append("stock", stock);
+            formData.append("description", productDescription);
+            formData.append("category", category);
+    
+            // Convert images to FormData
+            if (images.length > 0) {
+                Array.from(images).forEach((image) => {
+                    formData.append("images", image);
+                });
+            }
+    
+            // Send as multipart/form-data
+            await axios.post("http://localhost:5000/product", formData, {
+                headers: { "Content-Type": "multipart/form-data" },
+            });
+    
+            alert("Product added successfully!");
         } catch (error) {
             console.error("Submission error:", error);
-            alert("Failed to submit data");
+            alert("Failed to submit product");
         }
     };
 
@@ -129,11 +139,12 @@ const Product = () => {
 
                             {/* Image Upload */}
                             <Col lg={3}>
-                                <FormInput
+                            <FormInput
                                     label="Image URL"
                                     type="file"
+                                    multiple
                                     containerClass="mb-3"
-                                    onChange={(e) => setImages(e.target.value)}
+                                    onChange={(e) => setImages(e.target.files)}
                                 />
                             </Col>
                         </Row>
