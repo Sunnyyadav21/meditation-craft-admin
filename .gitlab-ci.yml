@@ -16,7 +16,7 @@ deploy_staging:
     - cp -v .env.staging .env.production
     - npm install --legacy-peer-deps
     - npm run build
-    - PORT=50363 docker-compose -c staging -f docker-compose.prod.yml up --build -d
+    - PORT=50363 docker-compose -c staging up --build -d
   environment:
     name: staging
     url: https://admin-staging.meditationcrafts.com
@@ -37,7 +37,7 @@ deploy_production:
     - npm install
     - npm ci --cache .npm
     - npm run build
-    - PORT=50363 docker-compose -c staging -f docker-compose.prod.yml up --build -d
+    - PORT=50363 docker-compose -c production up --build -d
   environment:
     name: production
-    url: https://eos-dash.srifincredit.com
+    url: https://admin.meditationcrafts.com
