@@ -13,7 +13,7 @@ deploy_staging:
     - . ~/.bashrc
     - nvm use v21
     - node --version
-    - cp -v .env.staging .env.production
+    - cp -v .env.staging .env
     - npm install --legacy-peer-deps
     - npm run build
     - PORT=50363 docker-compose -c staging up --build -d
@@ -34,6 +34,7 @@ deploy_production:
     - . ~/.bashrc
     - nvm use v21
     - node --version
+    - cp -v .env.production .env
     - npm install
     - npm ci --cache .npm
     - npm run build
