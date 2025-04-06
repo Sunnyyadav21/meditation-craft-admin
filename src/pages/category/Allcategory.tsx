@@ -6,20 +6,20 @@ import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 import request from '../../request';
-import dotenv from 'dotenv';
-import config from '@/config';
+ 
+ 
 
-const baseUrl = config;
+ 
 
 export default function Allcategory() {
      
-
-    console.log(request.get_categorie, 'Sunny');
+    const baseURL = import.meta.env.VITE_BASE_URL;
+    console.log(baseURL, 'sdadasdad');
     
     const [category, setCategory] = useState()
     const [updateCategory, setUpdateCategory] = useState()
     const [show, setShow] = useState(false)
-     console.log(request, 'get_product');
+     
     
     // const notify = () => toast("Delated successfully");
     const notify = (message) => toast(message);

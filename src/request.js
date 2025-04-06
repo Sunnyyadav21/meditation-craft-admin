@@ -1,7 +1,5 @@
 
- 
-import config from '@/config';
-const BaseUrl = config.REACT_APP_BASE_URL;
+const BaseUrl = import.meta.env.VITE_BASE_URL;
 
 const request = {
     create_categorie: BaseUrl + "/categorie",

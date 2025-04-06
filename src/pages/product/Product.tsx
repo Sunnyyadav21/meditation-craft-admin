@@ -72,7 +72,7 @@ const Product = () => {
             }
     
             // Send as multipart/form-data
-            await axios.post("http://localhost:5000/product", formData, {
+            await axios.post(`${request.create_product}`, formData, {
                 headers: { "Content-Type": "multipart/form-data" },
             });
     

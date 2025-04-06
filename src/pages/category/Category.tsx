@@ -5,12 +5,13 @@ import { Button, Card, Col, Form, Row } from 'react-bootstrap';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 import request from '../../request';
-
+ 
 export default function Category() {
 
     const [category, setCategory] = useState()
     const notify = () => toast("Categories created successfully!");
-
+     
+    alert(apiUrl)
     const handelSubmit = async (e) => {
         e.preventDefault()
         const data = {

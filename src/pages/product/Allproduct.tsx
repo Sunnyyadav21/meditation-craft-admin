@@ -96,7 +96,7 @@ export default function Allproduct() {
                                             return (
                                                 <tr key={index}>
                                                     <td>{product.product}</td>
-                                                    <td><img src={`http://localhost:5000/uploads/${product.images}`}></img></td>
+                                                    <td><img src={`https://api-staging.meditationcrafts.com/${product.images}`}></img></td>
 
                                                     {/* <td>{product.subCategorie}</td> */}
                                                     <td>{product.price}</td>

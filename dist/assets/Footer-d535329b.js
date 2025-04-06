@@ -1,1 +1,0 @@
-import{j as e,S as t,O as r}from"./index-51b0ddf4.js";const a=()=>e.jsx("footer",{className:"footer",children:e.jsx(t,{fluid:!0,children:e.jsx(r,{className:"row",children:e.jsxs("div",{className:"col-12 text-center",children:[new Date().getFullYear()," © Meditation Caraft"]})})})});export{a as default};

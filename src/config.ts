@@ -1,6 +1,5 @@
 const config = {
-	API_URL: process.env.REACT_APP_API_URL,
-	REACT_APP_BASE_URL: "http://localhost:5000",
+	//API_URL: import.meta.env.VITE_BASE_URL,
 }
 
 export default config
