@@ -1,0 +1,44 @@
+stages:
+  - deploy
+ 
+deploy_staging:
+  stage: deploy
+  only:
+    - staging
+  tags:
+    - production
+  script:
+    - echo "Deploy Meditation Craft admin panel to staging server"
+    - echo "running as $USER in $PWD HOME is $HOME"
+    - . ~/.bashrc
+    - nvm use v21
+    - node --version
+    - cp -v .env.staging .env.production
+    - npm install
+    - npm ci --cache .npm
+    - npm run build
+    - PORT=50363 docker-compose -c staging -f docker-compose.prod.yml up --build -d
+  environment:
+    name: staging
+    url: https://admin-staging.meditationcrafts.com
+
+
+deploy_production:
+  stage: deploy
+  only:
+    - main
+  tags:
+    - production
+  script:
+    - echo "Deploy Meditation Craft admin panel to live server"
+    - echo "running as $USER in $PWD HOME is $HOME"
+    - . ~/.bashrc
+    - nvm use v21
+    - node --version
+    - npm install
+    - npm ci --cache .npm
+    - npm run build
+    - PORT=50363 docker-compose -c staging -f docker-compose.prod.yml up --build -d
+  environment:
+    name: production
+    url: https://eos-dash.srifincredit.com
