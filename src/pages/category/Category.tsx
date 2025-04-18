@@ -11,7 +11,7 @@ export default function Category() {
     const [category, setCategory] = useState()
     const notify = () => toast("Categories created successfully!");
      
-    // alert(apiUrl)
+
     const handelSubmit = async (e) => {
         e.preventDefault()
         const data = {
