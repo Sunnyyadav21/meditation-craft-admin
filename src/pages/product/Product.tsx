@@ -33,7 +33,7 @@ const Product = () => {
     const [metaphysicalProperties, setMetaphysicalProperties] = useState('')
     const [features, setFeatures] = useState('')
 
-    const [variants, setVariants] = useState([{ weight: "", price: "", stock: "" }])
+    const [variants, setVariants] = useState([{ weight: "", price: "", discount:" ", stock: "" }])
 
 
     // Fetch categories from API (optional)
@@ -51,11 +51,11 @@ const Product = () => {
         const updated = [...variants];
         updated[index][field] = value;
         setVariants(updated);
-      };
+    };
 
-    const addVariant = ()=>{
-       setVariants([...variants, { weight: "", price: "", stock: ""}])
-    } 
+    const addVariant = () => {
+        setVariants([...variants, { weight: "", price: "", stock: "" }])
+    }
 
     const handleImageChange = (e) => {
         const selectedFiles = Array.from(e.target.files);
@@ -65,8 +65,8 @@ const Product = () => {
     const removeImage = (indexToRemove) => {
         setImages(prev => prev.filter((_, index) => index !== indexToRemove));
     };
-    
-    
+
+
     // const priceArray = productPrice
     //     .split(',')
     //     .map(p => parseFloat(p.trim()))
@@ -76,7 +76,7 @@ const Product = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         console.log(variants)
-        
+
         try {
             // Create FormData to send images
             const formData = new FormData();
@@ -87,9 +87,10 @@ const Product = () => {
             variants.forEach((variant, index) => {
                 formData.append(`variants[${index}][weight]`, variant.weight);
                 formData.append(`variants[${index}][price]`, variant.price);
+                formData.append(`variants[${index}][discount]`, variant.discount);
                 formData.append(`variants[${index}][stock]`, variant.stock);
             });
-            formData.append("discount", discount);
+          
             formData.append("color", color);
             formData.append("appearance", appearance);
             formData.append("rarity", rarity);
@@ -157,7 +158,7 @@ const Product = () => {
                                 // { label: "Price", state: setProductPrice },
                                 // { label: "Weight", state: setWeight },
                                 // { label: "Regular Price", state: setRegularPrice },
-                                { label: "Discount", state: setDiscount },
+                                // { label: "Discount", state: setDiscount },
                                 { label: "Color", state: setColor },
                                 { label: "Appearance", state: setAppearance },
                                 { label: "Rarity", state: setRarity },
@@ -183,84 +184,94 @@ const Product = () => {
 
                             {/* Image Upload */}
                             <Col lg={3}>
-    <FormInput
-        label="Upload Images"
-        type="file"
-        multiple
-        containerClass="mb-3"
-        onChange={handleImageChange}
-    />
-    {images.length > 0 && (
-        <div>
-            {Array.from(images).map((file, index) => (
-                <div key={index} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                    <span>{file.name}</span>
-                    <Button
-                        size="sm"
-                        variant="danger"
-                        onClick={() => removeImage(index)}
-                    >
-                        Remove
-                    </Button>
-                </div>
-            ))}
-        </div>
-    )}
-</Col>
+                                <FormInput
+                                    label="Upload Images"
+                                    type="file"
+                                    multiple
+                                    containerClass="mb-3"
+                                    onChange={handleImageChange}
+                                />
+                                {images.length > 0 && (
+                                    <div>
+                                        {Array.from(images).map((file, index) => (
+                                            <div key={index} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                                                <span>{file.name}</span>
+                                                <Button
+                                                    size="sm"
+                                                    variant="danger"
+                                                    onClick={() => removeImage(index)}
+                                                >
+                                                    Remove
+                                                </Button>
+                                            </div>
+                                        ))}
+                                    </div>
+                                )}
+                            </Col>
 
-                            <Col lg={6}>
+                            <Col lg={12}>
                                 {
                                     variants.map((variant, index) => {
                                         return (
                                             <div key={index}>
                                                 <Row>
-                                                <Col lg={4}>
-                                                <FormInput type='text'
-                                                  label='Weight'
-                                                    placeholder="weight"
-                                                    value={variant.weight}
-                                                    onChange={(e) =>
-                                                        handleVariantChange(index, "weight", e.target.value)
-                                                    }
-                                                />
-                                               
-                                                </Col>
-                                                
-                                                <Col lg={4}>
-                                                <FormInput type='text'
-                                                label='Price'
-                                                    placeholder="price"
-                                                    value={variant.price}
-                                                    onChange={(e) =>
-                                                        handleVariantChange(index, "price", e.target.value)
-                                                    }
-                                                />
-                                                
-                                                </Col>
-                                                
-                                                <Col lg={4}>
-                                                <FormInput type='text'
-                                                 label='Stock'
-                                                    placeholder="stock"
-                                                    value={variant.stock}
-                                                    onChange={(e) =>
-                                                        handleVariantChange(index, "stock", e.target.value)
-                                                    }
-                                                />
-                                                </Col>
+                                                    <Col lg={3}>
+                                                        <FormInput type='text'
+                                                            label='Weight'
+                                                            placeholder="weight"
+                                                            value={variant.weight}
+                                                            onChange={(e) =>
+                                                                handleVariantChange(index, "weight", e.target.value)
+                                                            }
+                                                        />
+
+                                                    </Col>
+
+                                                    <Col lg={3}>
+                                                        <FormInput type='text'
+                                                            label='Price'
+                                                            placeholder="price"
+                                                            value={variant.price}
+                                                            onChange={(e) =>
+                                                                handleVariantChange(index, "price", e.target.value)
+                                                            }
+                                                        />
+
+                                                    </Col>
+                                                    <Col lg={3}>
+                                                        <FormInput type='text'
+                                                            label='Discount'
+                                                            placeholder="discount"
+                                                            value={variant.discount}
+                                                            onChange={(e) =>
+                                                                handleVariantChange(index, "discount", e.target.value)
+                                                            }
+                                                        />
+
+                                                    </Col>
+                                                    <Col lg={3}>
+                                                        <FormInput type='text'
+                                                            label='Stock'
+                                                            placeholder="stock"
+                                                            value={variant.stock}
+                                                            onChange={(e) =>
+                                                                handleVariantChange(index, "stock", e.target.value)
+                                                            }
+                                                        />
+                                                    </Col>
                                                 </Row>
-                                               
+
                                             </div>
                                         )
                                     })
-                                    
+
                                 }
-                                 <Button className='mt-3 mb-3' onClick={addVariant}>Add Variant </Button>
+                                <Button className='mt-3 mb-3' onClick={addVariant}>Add Variant </Button>
                             </Col>
                             <Col lg={6}>
                                 <Form.Group className="mb-3">
                                     <Form.Label >
-                                    Product Description</Form.Label>
+                                        Product Description</Form.Label>
                                     <ReactQuill
                                         theme="snow"
                                         value={productDescription}

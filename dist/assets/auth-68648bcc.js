@@ -1,0 +1,1 @@
+import{Y as r}from"./index-37243863.js";function o(){return{login:t=>r.post("/login",t),logout(){return r.post("/logout",{})},register:t=>r.post("/register",t),forgetPassword:t=>r.post("/forget-password",t)}}const s=o();export{s as a};
