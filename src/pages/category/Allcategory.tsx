@@ -14,8 +14,12 @@ import request from '../../request';
 export default function Allcategory() {
      
     const baseURL = import.meta.env.VITE_BASE_URL;
+<<<<<<< HEAD
     console.log(baseURL, 'sdadasdad');
 alert(baseURL)    
+=======
+    
+>>>>>>> f41437396ae2a2a5d6b16376685f979a6d316dfd
     const [category, setCategory] = useState()
     const [updateCategory, setUpdateCategory] = useState()
     const [show, setShow] = useState(false)

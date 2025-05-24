@@ -91,12 +91,12 @@ export default function Allproduct() {
                                 <tbody>
                                     {
                                         products?.map((product, index) => {
-                                            console.log(product._id, 'product');
+                                            console.log(product, 'product');
 
                                             return (
                                                 <tr key={index}>
                                                     <td>{product.product}</td>
-                                                    <td><img src={`https://api-staging.meditationcrafts.com/${product.images}`}></img></td>
+                                                    <td><img src={`http://69.62.80.2:5000${product.images[0]}`}></img></td>
 
                                                     {/* <td>{product.subCategorie}</td> */}
                                                     <td>{product.price}</td>
