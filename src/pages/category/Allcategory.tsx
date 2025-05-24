@@ -15,7 +15,7 @@ export default function Allcategory() {
      
     const baseURL = import.meta.env.VITE_BASE_URL;
     console.log(baseURL, 'sdadasdad');
-    
+alert(baseURL)    
     const [category, setCategory] = useState()
     const [updateCategory, setUpdateCategory] = useState()
     const [show, setShow] = useState(false)
